@@ -49,6 +49,8 @@ class LeadFormController extends GetxController {
       "state": stateController.text,
       "city": cityController.text,
       "attachments": uploadedFiles.toList(),
+      "title": selectedTitle.value,
+      "ext": selectedMobileExt.value,
       "created_at": DateTime.now().toUtc().toIso8601String(),
     };
 
@@ -117,6 +119,8 @@ class LeadFormController extends GetxController {
       "state": stateController.text,
       "city": cityController.text,
       "attachments": uploadedFiles.toList(),
+      "title": selectedTitle.value,
+      "ext": selectedMobileExt.value,
       "updated_at": DateTime.now().toUtc().toIso8601String(),
     };
 
@@ -230,7 +234,6 @@ class LeadFormController extends GetxController {
         uploadedFiles.add(result.files.single.name);
       }
     } catch (e) {
-     
       Get.snackbar("Error", "Failed to pick file");
     }
   }
@@ -252,7 +255,7 @@ class LeadFormController extends GetxController {
 
         Get.dialog(
           AlertDialog(
-            title:const Text("Lead Details"),
+            title: const Text("Lead Details"),
             content: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,7 +268,7 @@ class LeadFormController extends GetxController {
                   Text("🌍 Website: ${leadData['website'] ?? 'N/A'}"),
                   Text("🎂 DOB: ${leadData['date_of_birth'] ?? 'N/A'}"),
 
-                const  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   /// **Lead Info**
                   Text(
@@ -273,7 +276,7 @@ class LeadFormController extends GetxController {
                   Text("🔗 Lead Source: ${leadData['lead_source'] ?? 'N/A'}"),
                   Text("📈 Lead Stage: ${leadData['lead_stage'] ?? 'N/A'}"),
 
-                const  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   /// **Business Info**
                   Text("🏢 Billing Name: ${leadData['billing_name'] ?? 'N/A'}"),
@@ -282,7 +285,7 @@ class LeadFormController extends GetxController {
                   Text("🧾 GST Number: ${leadData['gst_number'] ?? 'N/A'}"),
                   Text("🏛️ GST State: ${leadData['gst_state'] ?? 'N/A'}"),
 
-                const  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   /// **Addresses**
                   Text(
@@ -296,10 +299,10 @@ class LeadFormController extends GetxController {
                   Text("🏙️ State: ${leadData['state'] ?? 'N/A'}"),
                   Text("🏘️ City: ${leadData['city'] ?? 'N/A'}"),
 
-                const  SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   /// **Attachments**
-                const  Text("📂 Attachments:"),
+                  const Text("📂 Attachments:"),
                   if (leadData['attachments'] != null &&
                       (leadData['attachments'] as List).isNotEmpty)
                     ...List.generate(
@@ -307,9 +310,9 @@ class LeadFormController extends GetxController {
                       (index) => Text("- ${leadData['attachments'][index]}"),
                     )
                   else
-                  const  Text("No attachments uploaded"),
+                    const Text("No attachments uploaded"),
 
-                 const SizedBox(height: 10),
+                  const SizedBox(height: 10),
 
                   /// **Last Updated Timestamp**
                   Text(
@@ -320,7 +323,7 @@ class LeadFormController extends GetxController {
             actions: [
               TextButton(
                 onPressed: () => Get.back(),
-                child:const Text("Close"),
+                child: const Text("Close"),
               ),
             ],
           ),
@@ -552,6 +555,8 @@ class LeadFormController extends GetxController {
     selectedLeadStages.value = lead.leadStage ?? "";
     selectedAssignee.value = lead.assignee ?? "";
     selectedGstState.value = lead.gstState ?? "";
+    selectedTitle.value = lead.title ?? "";
+    selectedMobileExt.value = lead.ext ?? "";
 
     // Attachments
     uploadedFiles.assignAll(lead.attachments ?? []);
@@ -681,6 +686,98 @@ class LeadFormController extends GetxController {
 
     if (mailingAddressController.text.isEmpty) {
       Get.snackbar("Validation Error", "Mailing Address is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (selectedLeadSource.isEmpty) {
+      Get.snackbar("Validation Error", "LeadSource is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (selectedLeadPriority.isEmpty) {
+      Get.snackbar("Validation Error", "selectedLeadPriority is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+    if (selectedLeadStages.isEmpty) {
+      Get.snackbar("Validation Error", "selectedLeadStages is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (gstController.text.isEmpty) {
+      Get.snackbar("Validation Error", "gst is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+    // if (gstStateController.text.isEmpty) {
+    //   Get.snackbar("Validation Error", "gst state is required!",
+    //       snackPosition: SnackPosition.TOP,
+    //       backgroundColor: Colors.red,
+    //       colorText: Colors.white);
+    //   return false;
+    // }
+
+    if (zipCodeController.text.isEmpty) {
+      Get.snackbar("Validation Error", "Zip code is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (countryController.text.isEmpty) {
+      Get.snackbar("Validation Error", "country is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (stateController.text.isEmpty) {
+      Get.snackbar("Validation Error", "state is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (mailingAddressController.text.isEmpty) {
+      Get.snackbar("Validation Error", "mailing address is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+    if (billingAddressController.text.isEmpty) {
+      Get.snackbar("Validation Error", "billing address is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+
+    if (cityController.text.isEmpty) {
+      Get.snackbar("Validation Error", "city is required!",
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red,
+          colorText: Colors.white);
+      return false;
+    }
+    if (googleLocationController.text.isEmpty) {
+      Get.snackbar("Validation Error", "googleLocation is required!",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
           colorText: Colors.white);

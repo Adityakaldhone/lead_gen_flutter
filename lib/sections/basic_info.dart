@@ -203,6 +203,7 @@ class BasicInfoSection extends StatelessWidget {
 
                       /// **Website (Optional)**
                       InputField(
+                        regExp: ValidationPatterns.website,
                         textInputType: TextInputType.text,
                         controller: controller.websiteController,
                         width: double.infinity,

@@ -29,6 +29,8 @@ class Lead {
   List<String>? attachments;
   String? createdAt;
   String? updatedAt;
+  String? title;
+  String? ext;
 
   Lead({
     this.docId,
@@ -59,6 +61,8 @@ class Lead {
     this.updatedAt,
     this.emailUpdateDate,
     this.photo,
+    this.title,
+    this.ext
   });
 
   /// **Convert Firestore Document to `Lead` Model**
@@ -69,6 +73,8 @@ class Lead {
       docId: docId, // Ensure docId is explicitly assigned
       name: data['name'] as String? ?? "",
       photo: data['photo'] as String? ?? "",
+      title: data['title'] as String? ?? "",
+      ext: data['ext'] as String? ?? "",
       billingName: data['billing_name'] as String? ?? "",
       emailUpdateDate: data['email_update_date'] as String? ?? "",
       mobileNumber: data['mobile_number'] as String? ?? "",
@@ -105,6 +111,8 @@ class Lead {
     return {
       "photo": photo ?? "",
       "email_update_date": emailUpdateDate ?? "",
+      "title": title ?? "",
+      "ext": ext ?? "",
       "name": name ?? "",
       "billing_name": billingName ?? "",
       "mobile_number": mobileNumber ?? "",

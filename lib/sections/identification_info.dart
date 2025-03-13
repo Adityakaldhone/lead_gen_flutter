@@ -7,7 +7,7 @@ import 'package:lead_gen/uiComponents/inputfield.dart';
 class IdentificationInfoSection extends StatelessWidget {
   final LeadFormController controller = Get.find();
 
-   IdentificationInfoSection({super.key});
+  IdentificationInfoSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +22,14 @@ class IdentificationInfoSection extends StatelessWidget {
             child: ExpansionTile(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
-              title:const Text("Identification Information",
+              title: const Text("Identification Information",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
               initiallyExpanded: controller.isIdentificationInfoExpanded.value,
               onExpansionChanged: (value) =>
                   controller.isIdentificationInfoExpanded.value = value,
               children: [
                 Padding(
-                  padding:const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   child: Form(
                     key: controller.identificationFormKey,
                     child: Column(
@@ -37,14 +37,14 @@ class IdentificationInfoSection extends StatelessWidget {
                         /// **Aadhaar Number**
                         InputField(
                           regExp: ValidationPatterns.aadharNumber,
-                          textInputType: TextInputType.name,
+                          textInputType: TextInputType.number,
                           controller: controller.aadharController,
                           width: double.infinity,
                           hint: "Enter Aadhaar Number",
                           labelText: "Aadhaar Number",
                         ),
-                      const  SizedBox(height: 10),
-                    
+                        const SizedBox(height: 10),
+
                         /// **PAN Number**
                         InputField(
                           regExp: ValidationPatterns.panNumber,
@@ -54,8 +54,8 @@ class IdentificationInfoSection extends StatelessWidget {
                           hint: "Enter PAN Number",
                           labelText: "PAN Number",
                         ),
-                       const SizedBox(height: 10),
-                    
+                        const SizedBox(height: 10),
+
                         /// **GST Number**
                         InputField(
                           regExp: ValidationPatterns.gstNumber,
@@ -66,12 +66,12 @@ class IdentificationInfoSection extends StatelessWidget {
                           hint: "Enter GST Number",
                           labelText: "GST Number",
                         ),
-                      const  SizedBox(height: 10),
-                    
+                        const SizedBox(height: 10),
+
                         /// **GST State Dropdown**
                         Obx(() => Column(
                               children: [
-                              const  Row(
+                                const Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
@@ -88,14 +88,14 @@ class IdentificationInfoSection extends StatelessWidget {
                                           .selectedGstState.value.isNotEmpty
                                       ? controller.selectedGstState.value
                                       : null, // Set to null if empty to avoid errors
-                                  hint:const Text(
+                                  hint: const Text(
                                       "GST State"), // Add a hint for better UI
                                   items: controller.gstStatesList
                                       .map((e) => DropdownMenuItem(
                                           value: e, child: Text(e)))
                                       .toList(),
-                                  onChanged: (value) =>
-                                      controller.selectedGstState.value = value!,
+                                  onChanged: (value) => controller
+                                      .selectedGstState.value = value!,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8)),
