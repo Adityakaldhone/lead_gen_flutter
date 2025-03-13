@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "932676881484",
+    "project_id": "leadgen-f65ef",
+    "storage_bucket": "leadgen-f65ef.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932676881484:android:f1b194f114be8a9f5378e9",
+        "android_client_info": {
+          "package_name": "com.example.lead_gen"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_yJRwdUNfW_T8mTlitzCbLArUJRhkqM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
